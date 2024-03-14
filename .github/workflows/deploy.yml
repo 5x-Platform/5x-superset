@@ -9,26 +9,26 @@ jobs:
     name: Build & Deploy
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout Backend Repository
+      - name: Checkout Superset Repository
         uses: actions/checkout@v2
         with:
           repository: 5x-Platform/5x-superset
-          path: backend
+          path: superset
           ref: dev
 
-      - name: Checkout Frontend Repository
-        uses: actions/checkout@v2
-        with:
-          repository: 5x-Platform/5x-superset-ui
-          token: ${{ secrets.GH_PAT }}
-          path: frontend
-          ref: dev
+      # - name: Checkout Frontend Repository
+      #   uses: actions/checkout@v2
+      #   with:
+      #     repository: 5x-Platform/5x-superset-ui
+      #     token: ${{ secrets.GH_PAT }}
+      #     path: frontend
+      #     ref: dev
 
-      - name: Create superset-frontend Folder
-        run: mkdir backend/superset-frontend
+      # - name: Create superset-frontend Folder
+      #   run: mkdir backend/superset-frontend
 
-      - name: Move Frontend Files
-        run: mv frontend/* backend/superset-frontend/
+      # - name: Move Frontend Files
+      #   run: mv frontend/* backend/superset-frontend/
 
       # - name: Configure AWS credentials
       #   uses: aws-actions/configure-aws-credentials@v1
