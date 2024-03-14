@@ -41,7 +41,21 @@ jobs:
       #   id: ecr-login
       #   uses: aws-actions/amazon-ecr-login@v1        
 
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_KEY }}
+          aws-region: us-east-1
+
+      # Login to Amazon ECR
+      - name: Login to Amazon ECR
+        id: ecr-login
+        uses: aws-actions/amazon-ecr-login@v1
+
       - name: Build Code
         run: |
           cd superset
           docker build -t 5x-superset-dev .
+          docker tag 5x-superset-dev:latest 153475762833.dkr.ecr.us-east-1.amazonaws.com/5x-superset-dev:latest
+          docker push 153475762833.dkr.ecr.us-east-1.amazonaws.com/5x-superset-dev:latest
