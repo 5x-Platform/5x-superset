@@ -307,7 +307,7 @@ export function Menu({
           >
             {isFrontendRoute(window.location.pathname) ? (
               <GenericLink className="navbar-brand" to={brand.path}>
-                <img src={brand.icon} alt={brand.alt} />
+                {/* <img src={brand.icon} alt={brand.alt} /> */}
               </GenericLink>
             ) : (
               <a className="navbar-brand" href={brand.path}>
@@ -326,7 +326,7 @@ export function Menu({
             className="main-nav"
             selectedKeys={activeTabs}
           >
-            {menu.map((item, index) => {
+            {menu.filter(item => item.name !== "SQL Lab").map((item, index) => {
               const props = {
                 index,
                 ...item,
