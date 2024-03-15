@@ -326,25 +326,27 @@ export function Menu({
             className="main-nav"
             selectedKeys={activeTabs}
           >
-            {menu.filter(item => item.name !== "SQL Lab").map((item, index) => {
-              const props = {
-                index,
-                ...item,
-                isFrontendRoute: isFrontendRoute(item.url),
-                childs: item.childs?.map(c => {
-                  if (typeof c === 'string') {
-                    return c;
-                  }
+            {menu
+              .filter(item => item.name !== 'SQL Lab')
+              .map((item, index) => {
+                const props = {
+                  index,
+                  ...item,
+                  isFrontendRoute: isFrontendRoute(item.url),
+                  childs: item.childs?.map(c => {
+                    if (typeof c === 'string') {
+                      return c;
+                    }
 
-                  return {
-                    ...c,
-                    isFrontendRoute: isFrontendRoute(c.url),
-                  };
-                }),
-              };
+                    return {
+                      ...c,
+                      isFrontendRoute: isFrontendRoute(c.url),
+                    };
+                  }),
+                };
 
-              return renderSubMenu(props);
-            })}
+                return renderSubMenu(props);
+              })}
           </DropdownMenu>
         </Col>
         <Col md={8} xs={24}>
