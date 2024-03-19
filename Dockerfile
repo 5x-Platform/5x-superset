@@ -61,11 +61,7 @@ ENV LANG=C.UTF-8 \
     SUPERSET_HOME="/app/superset_home" \
     SUPERSET_PORT=8088
 
-RUN apt-get update && \
-    apt-get install python3.7-dev
-    
-RUN apt-get update && \
-    apt-get install -y gcc
+RUN pip install python-geohash
 
 RUN pip install apache-superset[cors]
 RUN pip install Authlib
