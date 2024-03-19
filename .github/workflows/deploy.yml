@@ -13,33 +13,7 @@ jobs:
         uses: actions/checkout@v2
         with:
           repository: 5x-Platform/5x-superset
-          path: superset
-          ref: dev
-
-      # - name: Checkout Frontend Repository
-      #   uses: actions/checkout@v2
-      #   with:
-      #     repository: 5x-Platform/5x-superset-ui
-      #     token: ${{ secrets.GH_PAT }}
-      #     path: frontend
-      #     ref: dev
-
-      # - name: Create superset-frontend Folder
-      #   run: mkdir backend/superset-frontend
-
-      # - name: Move Frontend Files
-      #   run: mv frontend/* backend/superset-frontend/
-
-      # - name: Configure AWS credentials
-      #   uses: aws-actions/configure-aws-credentials@v1
-      #   with:
-      #     aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY }}
-      #     aws-secret-access-key: ${{ secrets.AWS_SECRET_KEY }}
-      #     aws-region: us-east-1
-
-      # - name: Login to Amazon ECR
-      #   id: ecr-login
-      #   uses: aws-actions/amazon-ecr-login@v1        
+          ref: dev      
 
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v1
@@ -55,7 +29,22 @@ jobs:
 
       - name: Build Code
         run: |
-          cd superset
           docker build -t 5x-superset-dev .
           docker tag 5x-superset-dev:latest 153475762833.dkr.ecr.us-east-1.amazonaws.com/5x-superset-dev:latest
           docker push 153475762833.dkr.ecr.us-east-1.amazonaws.com/5x-superset-dev:latest
+
+      - name: Fill in the new image ID in the Amazon ECS task definition
+        id: task-def
+        uses: aws-actions/amazon-ecs-render-task-definition@v1
+        with:
+          task-definition: .github/task-definition.json
+          container-name: 5x-superset-dev
+          image: 153475762833.dkr.ecr.us-east-1.amazonaws.com/5x-superset-dev:latest
+          
+      - name: Deploy Amazon ECS task definition
+        uses: aws-actions/amazon-ecs-deploy-task-definition@v1
+        with:
+          task-definition: ${{ steps.task-def.outputs.task-definition }}
+          service: abc1234-superset-dev
+          cluster: 5X-superset-dev
+          wait-for-service-stability: false
