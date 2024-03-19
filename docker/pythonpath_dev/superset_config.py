@@ -25,8 +25,86 @@ import os
 
 from celery.schedules import crontab
 from flask_caching.backends.filesystemcache import FileSystemCache
+from flask_appbuilder.security.manager import AUTH_OID, AUTH_REMOTE_USER, AUTH_DB, AUTH_LDAP, AUTH_OAUTH
 
 logger = logging.getLogger()
+
+
+AUTH_TYPE = AUTH_OAUTH
+
+OAUTH_PROVIDERS = [{
+    'name':'auth0',
+    'token_key':'access_token', # depending on your provider
+    'icon':'fa-google', # optional
+    'remote_app': {
+        'client_id':'CtjsodUV3gusZN0QdpQzOZOkoWaWQOQ2',
+        'client_secret':'IJd3KyNaMDSCXVLJD36OlDkPCadTO7UmFjD37zOXkDte8iUgkJlTX3g77Rk8Q-pG',
+        'api_base_url':'https://dev-auth.5x.co',
+	'base_url': '',
+        'client_kwargs':{
+            'scope':'openid profile email',
+	
+        },
+	'api_base_url':'https://dev-auth.5x.co',
+        'access_token_url':'https://dev-auth.5x.co/oauth/token',
+        'authorize_url':'https://dev-auth.5x.co/authorize',
+	'jwks_uri':'https://dev-auth.5x.co/.well-known/jwks.json',
+	'access_token_method':'POST',
+	'access_token_params': {
+            'audience': 'https://pen-testing.5x-api.com'
+        }
+    }
+}]
+
+FEATURE_FLAGS = {
+    "ENABLE_TEMPLATE_PROCESSING": True,
+    "EMBEDDED_SUPERSET": True,
+    "TAGGING_SYSTEM": True
+}
+TALISMAN_ENABLED = False
+ENABLE_PROXY_FIX = True
+SECRET_KEY = "12345678"
+SESSION_COOKIE_SECURE = True
+SESSION_COOKIE_HTTPONLY = False
+
+
+AUTH_USER_REGISTRATION = True
+AUTH_USER_REGISTRATION_ROLE = "Admin"
+PUBLIC_ROLE_LIKE_GAMMA = True
+
+# Allow Superset to be embedded in an iframe
+HTTP_HEADERS={"X-Frame-Options":"ALLOWALL","ngrok-skip-browser-warning":"true"} 
+SESSION_COOKIE_SAMESITE = 'None'  # May be necessary for iframes; adjust based on your security needs
+
+FAB_API_SWAGGER_UI = True
+FAB_ADD_SECURITY_API = True
+
+
+ENABLE_CORS=True
+CORS_OPTIONS={
+    'supports_credentials': True,
+    'allow_headers': [
+        'X-CSRFToken', 'Content-Type', 'Origin', 'X-Requested-With', 'Accept',
+    ],
+    'resources': [
+         '/superset/csrf_token/' , # auth
+         '/api/v1/formData/',  # sliceId => formData
+         '/superset/explore_json/*',  # legacy query API, formData => queryData
+         '/api/v1/query/',  # new query API, queryContext => queryData
+         '/superset/fetch_datasource_metadata/'  # datasource metadata
+
+    ],
+    'origins': ['http://localhost:3001','http://localhost:8088','http://localhost:3000','http://localhost:9010','https://platform-1-dev.5x.co','https://platform-2-dev.5x.co','https://integration-1-dev.5x.co','https://integration-2-dev.5x.co','https://qa-1.5x.co','https://platform-1-dev.5x.co','https://qa.5x.co','https://staging.5x.co','https://app.5x.co'],
+}
+
+
+OIDC_ID_TOKEN_COOKIE_SECURE = False  # Set to True in HTTPS environments
+OIDC_REQUIRE_VERIFIED_EMAIL = False
+OIDC_USER_INFO_ENABLED = True
+
+from custom_sso_security_manager import CustomSsoSecurityManager
+CUSTOM_SECURITY_MANAGER = CustomSsoSecurityManager
+
 
 DATABASE_DIALECT = os.getenv("DATABASE_DIALECT")
 DATABASE_USER = os.getenv("DATABASE_USER")
