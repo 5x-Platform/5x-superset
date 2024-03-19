@@ -208,13 +208,13 @@ const RightMenu = ({
         },
       ],
     },
-    {
-      label: t('SQL query'),
-      url: '/sqllab?new=true',
-      icon: 'fa-fw fa-search',
-      perm: 'can_sqllab',
-      view: 'Superset',
-    },
+    // {
+    //   label: t('SQL query'),
+    //   url: '/sqllab?new=true',
+    //   icon: 'fa-fw fa-search',
+    //   perm: 'can_sqllab',
+    //   view: 'Superset',
+    // },
     {
       label: t('Chart'),
       url: Number.isInteger(dashboardId)
@@ -469,7 +469,7 @@ const RightMenu = ({
             ),
           ])}
 
-          {!navbarRight.user_is_anonymous && [
+          {/* {!navbarRight.user_is_anonymous && [
             <Menu.Divider key="user-divider" />,
             <Menu.ItemGroup key="user-section" title={t('User')}>
               {navbarRight.user_profile_url && (
@@ -486,14 +486,14 @@ const RightMenu = ({
                 <a href={navbarRight.user_logout_url}>{t('Logout')}</a>
               </Menu.Item>
             </Menu.ItemGroup>,
-          ]}
+          ]} */}
           {(navbarRight.version_string || navbarRight.version_sha) && [
             <Menu.Divider key="version-info-divider" />,
             <Menu.ItemGroup key="about-section" title={t('About')}>
               <div className="about-section">
                 {navbarRight.show_watermark && (
                   <div css={versionInfoStyles}>
-                    {t('Powered by Apache Superset')}
+                    {t('Superset managed by 5X')}
                   </div>
                 )}
                 {navbarRight.version_string && (

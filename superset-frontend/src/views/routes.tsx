@@ -20,7 +20,7 @@ import { FeatureFlag, isFeatureEnabled } from '@superset-ui/core';
 import React, { lazy } from 'react';
 
 // not lazy loaded since this is the home page.
-import Home from 'src/pages/Home';
+// import Home from 'src/pages/Home';
 
 const ChartCreation = lazy(
   () =>
@@ -92,21 +92,21 @@ const Chart = lazy(
   () => import(/* webpackChunkName: "Chart" */ 'src/pages/Chart'),
 );
 
-const QueryHistoryList = lazy(
-  () =>
-    import(
-      /* webpackChunkName: "QueryHistoryList" */ 'src/pages/QueryHistoryList'
-    ),
-);
+// const QueryHistoryList = lazy(
+//   () =>
+//     import(
+//       /* webpackChunkName: "QueryHistoryList" */ 'src/pages/QueryHistoryList'
+//     ),
+// );
 
 const SavedQueryList = lazy(
   () =>
     import(/* webpackChunkName: "SavedQueryList" */ 'src/pages/SavedQueryList'),
 );
 
-const SqlLab = lazy(
-  () => import(/* webpackChunkName: "SqlLab" */ 'src/pages/SqlLab'),
-);
+// const SqlLab = lazy(
+//   () => import(/* webpackChunkName: "SqlLab" */ 'src/pages/SqlLab'),
+// );
 
 const AllEntities = lazy(
   () => import(/* webpackChunkName: "AllEntities" */ 'src/pages/AllEntities'),
@@ -135,10 +135,10 @@ type Routes = {
 }[];
 
 export const routes: Routes = [
-  {
-    path: '/superset/welcome/',
-    Component: Home,
-  },
+  // {
+  //   path: '/superset/welcome/',
+  //   Component: Home,
+  // },
   {
     path: '/dashboard/list/',
     Component: DashboardList,
@@ -179,10 +179,10 @@ export const routes: Routes = [
     path: '/annotationlayer/:annotationLayerId/annotation/',
     Component: AnnotationList,
   },
-  {
-    path: '/sqllab/history/',
-    Component: QueryHistoryList,
-  },
+  // {
+  //   path: '/sqllab/history/',
+  //   Component: QueryHistoryList,
+  // },
   {
     path: '/alert/list/',
     Component: AlertReportList,
@@ -229,10 +229,10 @@ export const routes: Routes = [
     path: '/profile',
     Component: Profile,
   },
-  {
-    path: '/sqllab/',
-    Component: SqlLab,
-  },
+  // {
+  //   path: '/sqllab/',
+  //   Component: SqlLab,
+  // },
 ];
 
 if (isFeatureEnabled(FeatureFlag.TAGGING_SYSTEM)) {
