@@ -60,6 +60,8 @@ ENV LANG=C.UTF-8 \
     PYTHONPATH="/app/pythonpath" \
     SUPERSET_HOME="/app/superset_home" \
     SUPERSET_PORT=8088
+    
+RUN apt-get -y install gcc
 
 RUN pip install apache-superset[cors]
 RUN pip install Authlib
