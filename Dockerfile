@@ -61,11 +61,6 @@ ENV LANG=C.UTF-8 \
     SUPERSET_HOME="/app/superset_home" \
     SUPERSET_PORT=8088
 
-RUN pip install python-geohash
-
-RUN pip install apache-superset[cors]
-RUN pip install Authlib
-
 # Environment variables for admin setup
 ENV ADMIN_USERNAME=prince@5x.co \
     ADMIN_EMAIL=prince@5x.co \
@@ -86,6 +81,7 @@ RUN mkdir -p ${PYTHONPATH} superset/static superset-frontend apache_superset.egg
     && chown -R superset:superset ./* \
     && rm -rf /var/lib/apt/lists/*
 
+
 COPY --chown=superset:superset setup.py MANIFEST.in README.md ./
 # setup.py uses the version information in package.json
 COPY --chown=superset:superset superset-frontend/package.json superset-frontend/
@@ -94,6 +90,9 @@ RUN --mount=type=bind,target=./requirements/local.txt,src=./requirements/local.t
     --mount=type=bind,target=./requirements/base.txt,src=./requirements/base.txt \
     --mount=type=cache,target=/root/.cache/pip \
     pip install -r requirements/local.txt
+
+RUN pip install apache-superset[cors]
+RUN pip install Authlib
 
 COPY --chown=superset:superset --from=superset-node /app/superset/static/assets superset/static/assets
 ## Lastly, let's install superset itself
