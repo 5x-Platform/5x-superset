@@ -191,7 +191,7 @@ initImage:
 
 service:
   type: ClusterIP
-  port: 8088
+  port: 80
   annotations: {}
     # cloud.google.com/load-balancer-type: "Internal"
   loadBalancerIP: ~
