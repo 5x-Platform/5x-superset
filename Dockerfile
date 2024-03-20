@@ -85,6 +85,11 @@ RUN mkdir -p ${PYTHONPATH} superset/static superset-frontend apache_superset.egg
 COPY --chown=superset:superset setup.py MANIFEST.in README.md ./
 # setup.py uses the version information in package.json
 COPY --chown=superset:superset superset-frontend/package.json superset-frontend/
+# New command to copy the superset_config.py to PYTHONPATH
+COPY --chown=superset:superset docker/pythonpath_dev/superset_config.py ${PYTHONPATH}/superset_config.py
+# New command to copy the superset_config.py to PYTHONPATH
+COPY --chown=superset:superset docker/pythonpath_dev/custom_sso_security_manager.py ${PYTHONPATH}/custom_sso_security_manager.py
+
 RUN --mount=type=bind,target=./requirements/local.txt,src=./requirements/local.txt \
     --mount=type=bind,target=./requirements/development.txt,src=./requirements/development.txt \
     --mount=type=bind,target=./requirements/base.txt,src=./requirements/base.txt \
