@@ -1,0 +1,50 @@
+name: Deploy
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - staging
+jobs:
+  build:
+    name: Build & Deploy
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Superset Repository
+        uses: actions/checkout@v2
+        with:
+          repository: 5x-Platform/5x-superset
+          ref: staging      
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_KEY }}
+          aws-region: us-east-1
+
+      # Login to Amazon ECR
+      - name: Login to Amazon ECR
+        id: ecr-login
+        uses: aws-actions/amazon-ecr-login@v1
+
+      - name: Build Code
+        run: |
+          docker build -t 5x-superset-dev .
+          docker tag 5x-superset-dev:latest 153475762833.dkr.ecr.us-east-1.amazonaws.com/5x-superset-dev:latestStaging
+          docker push 153475762833.dkr.ecr.us-east-1.amazonaws.com/5x-superset-dev:latestStaging
+
+      - name: Fill in the new image ID in the Amazon ECS task definition
+        id: task-def
+        uses: aws-actions/amazon-ecs-render-task-definition@v1
+        with:
+          task-definition: .github/task-definition-staging.json
+          container-name: 5x-superset
+          image: 153475762833.dkr.ecr.us-east-1.amazonaws.com/5x-superset-dev:latestStaging
+          
+      - name: Deploy Amazon ECS task definition
+        uses: aws-actions/amazon-ecs-deploy-task-definition@v1
+        with:
+          task-definition: ${{ steps.task-def.outputs.task-definition }}
+          service: 5x-superset
+          cluster: 5X-superset-staging
+          wait-for-service-stability: false
