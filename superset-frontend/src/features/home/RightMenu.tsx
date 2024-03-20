@@ -149,6 +149,7 @@ const RightMenu = ({
   const canDatabase = findPermission('can_write', 'Database', roles);
   const canDataset = findPermission('can_write', 'Dataset', roles);
 
+
   const { canUploadData, canUploadCSV, canUploadColumnar, canUploadExcel } =
     uploadUserPerms(
       roles,
@@ -356,8 +357,8 @@ const RightMenu = ({
             /^#(?:[0-9a-f]{3}){1,2}$/i.test(environmentTag.color)
               ? environmentTag.color
               : environmentTag.color
-                  .split('.')
-                  .reduce((o, i) => o[i], theme.colors)
+                .split('.')
+                .reduce((o, i) => o[i], theme.colors)
           }
         >
           <span css={tagStyles}>{environmentTag.text}</span>
@@ -440,6 +441,7 @@ const RightMenu = ({
           icon={<Icons.TriangleDown iconSize="xl" />}
         >
           {settings?.map?.((section, index) => [
+            console.log("section", section),
             <Menu.ItemGroup key={`${section.label}`} title={section.label}>
               {section?.childs?.map?.(child => {
                 if (typeof child !== 'string') {
@@ -589,7 +591,7 @@ class RightMenuErrorWrapper extends React.PureComponent<RightMenuProps> {
     return { hasError: true };
   }
 
-  noop = () => {};
+  noop = () => { };
 
   render() {
     if (this.state.hasError) {
