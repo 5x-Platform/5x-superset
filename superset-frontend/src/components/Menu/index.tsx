@@ -147,7 +147,7 @@ const StyledSubMenu = styled(AntdMenu.SubMenu)`
       top: 7px;
     }
     &:hover {
-      color: ${({ theme }) => theme.colors.primary.base};
+      color: ${({ theme }) => theme.colors.primary.base} !important;
     }
   }
 `;
