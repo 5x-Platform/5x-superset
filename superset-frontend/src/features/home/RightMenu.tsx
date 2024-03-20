@@ -443,7 +443,12 @@ const RightMenu = ({
             console.log('section', section),
             <Menu.ItemGroup key={`${section.label}`} title={section.label}>
               {section?.childs?.map?.(child => {
-                if (typeof child !== 'string' && child.name !== "List Users" && child.name !== "List Roles" && child.name !== "User Regsitration") {
+                if (
+                  typeof child !== 'string' &&
+                  child.name !== 'List Users' &&
+                  child.name !== 'List Roles' &&
+                  child.name !== 'User Regsitration'
+                ) {
                   const menuItemDisplay = RightMenuItemIconExtension ? (
                     <StyledMenuItemWithIcon>
                       {child.label}
