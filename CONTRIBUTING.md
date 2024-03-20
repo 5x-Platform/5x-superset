@@ -1010,7 +1010,7 @@ For debugging locally using VSCode, you can configure a launch configuration fil
         "FLASK_APP": "superset",
         "SUPERSET_ENV": "development"
       },
-      "args": ["run", "-p 8088", "--with-threads", "--reload", "--debugger"],
+      "args": ["run", "-p 80", "--with-threads", "--reload", "--debugger"],
       "jinja": true,
       "justMyCode": true
     }
