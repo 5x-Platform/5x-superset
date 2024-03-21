@@ -67,9 +67,9 @@ const StyledI = styled.div`
 `;
 
 const styledDisabled = (theme: SupersetTheme) => css`
-  color: ${theme.colors.grayscale.light1};
+  color: ${theme.colors.primary.base} !important;
   .ant-menu-item-active {
-    color: ${theme.colors.grayscale.light1};
+    color: ${theme.colors.primary.base} !important;
     cursor: default;
   }
 `;

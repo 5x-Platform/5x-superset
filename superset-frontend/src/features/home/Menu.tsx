@@ -62,7 +62,7 @@ const StyledHeader = styled.header`
         padding: ${theme.gridUnit}px
           ${theme.gridUnit * 2}px
           ${theme.gridUnit}px
-          ${theme.gridUnit * 4}px;
+          0px !important;
         max-width: ${theme.gridUnit * theme.brandIconMaxWidth}px;
         img {
           height: 100%;
@@ -104,10 +104,12 @@ const StyledHeader = styled.header`
       .ant-menu-horizontal .ant-menu-item {
         height: 100%;
         line-height: inherit;
+        color: ${theme.colors.primary.base};
       }
       .ant-menu > .ant-menu-item > a {
         padding: ${theme.gridUnit * 4}px; 
-         color: ${theme.colors.primary.inactive};      
+         color: ${theme.colors.primary.inactive};  
+         font-weight: ${theme.typography.weights.medium};    
       }
       @media (max-width: 767px) {
         .ant-menu-item {
@@ -129,7 +131,7 @@ const StyledHeader = styled.header`
       }
       .ant-menu-item a {
         &:hover {
-          color: ${theme.colors.grayscale.dark1};
+          color: ${theme.colors.primary.base} !important;
           background-color: ${theme.colors.primary.light5};
           border-bottom: none;
           margin: 0;
@@ -158,7 +160,7 @@ const globalStyles = (theme: SupersetTheme) => css`
   .ant-menu-item-selected {
     background-color: transparent;
     &:not(.ant-menu-item-active) {
-      color: inherit;
+      color: ${theme.colors.primary.base} !important;
       border-bottom-color: transparent;
       & > a {
         color: inherit;
