@@ -85,7 +85,6 @@ RUN mkdir -p ${PYTHONPATH} superset/static superset-frontend apache_superset.egg
 COPY --chown=superset:superset setup.py MANIFEST.in README.md ./
 # setup.py uses the version information in package.json
 COPY --chown=superset:superset superset-frontend/package.json superset-frontend/
-COPY --chown=superset:superset docker/pythonpath_dev/custom_sso_security_manager.py pythonpath/
 
 RUN --mount=type=bind,target=./requirements/local.txt,src=./requirements/local.txt \
     --mount=type=bind,target=./requirements/development.txt,src=./requirements/development.txt \
@@ -97,7 +96,7 @@ RUN pip install apache-superset[cors]
 RUN pip install Authlib
 
 COPY --chown=superset:superset --from=superset-node /app/superset/static/assets superset/static/assets
-COPY --chown=superset:superset docker/pythonpath_dev/custom_sso_security_manager.py pythonpath
+COPY --chown=superset:superset docker/pythonpath_dev/custom_sso_security_manager.py pythonpath/
 
 ## Lastly, let's install superset itself
 COPY --chown=superset:superset superset superset
