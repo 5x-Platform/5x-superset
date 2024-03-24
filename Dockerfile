@@ -96,8 +96,6 @@ RUN pip install apache-superset[cors]
 RUN pip install Authlib
 
 COPY --chown=superset:superset --from=superset-node /app/superset/static/assets superset/static/assets
-COPY --chown=superset:superset  docker/pythonpath_dev/custom_sso_security_manager.py pythonpath
-
 ## Lastly, let's install superset itself
 COPY --chown=superset:superset superset superset
 RUN --mount=type=cache,target=/root/.cache/pip \
