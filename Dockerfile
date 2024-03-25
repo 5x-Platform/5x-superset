@@ -94,6 +94,9 @@ RUN --mount=type=bind,target=./requirements/local.txt,src=./requirements/local.t
 
 RUN pip install apache-superset[cors]
 RUN pip install Authlib
+RUN pip install sqlalchemy-redshift
+RUN pip install snowflake-sqlalchemy
+RUN pip install sqlalchemy-bigquery
 
 COPY --chown=superset:superset --from=superset-node /app/superset/static/assets superset/static/assets
 COPY --chown=superset:superset docker/pythonpath_dev/custom_sso_security_manager.py pythonpath/
