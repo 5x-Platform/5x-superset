@@ -245,14 +245,14 @@ initImage:
   pullPolicy: Always
 
 service:
-  type: ClusterIP
+  type: LoadBalancer
   port: 8088
   annotations: {}
     # cloud.google.com/load-balancer-type: "Internal"
   loadBalancerIP: ~
   nodePort:
     # -- (int)
-    http: nil
+    http: 30248
 
 ingress:
   enabled: false
@@ -534,13 +534,13 @@ supersetCeleryFlower:
     - "-c"
     - "celery --app=superset.tasks.celery_app:app flower"
   service:
-    type: ClusterIP
+    type: LoadBalancer
     annotations: {}
     loadBalancerIP: ~
     port: 5555
     nodePort:
       # -- (int)
-      http: nil
+      http: 30249
   startupProbe:
     httpGet:
       path: /api/workers
@@ -640,13 +640,13 @@ supersetWebsockets:
       "jwtCookieName": "async-token",
     }
   service:
-    type: ClusterIP
+    type: LoadBalancer
     annotations: {}
     loadBalancerIP: ~
     port: 8080
     nodePort:
       # -- (int)
-      http: nil
+      http: 30247
   command: []
   resources: {}
   # -- Launch additional containers into supersetWebsockets pods
