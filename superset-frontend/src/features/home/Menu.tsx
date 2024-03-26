@@ -160,7 +160,7 @@ const globalStyles = (theme: SupersetTheme) => css`
     background-color: transparent;
     &:not(.ant-menu-item-active) {
       color: ${theme.colors.primary.dark2} !important;
-      border-bottom-color: transparent;
+      border-bottom-color : transparent !important;
       & > a {
         color: inherit;
       }
@@ -169,7 +169,7 @@ const globalStyles = (theme: SupersetTheme) => css`
   .ant-menu-horizontal > .ant-menu-item:has(> .is-active) {
     color: ${theme.colors.primary.dark2} !important;
     font-weight: ${theme.typography.weights.bold} !important; 
-    border-bottom-color: ${theme.colors.primary.base};
+    border-bottom: 3px solid ${theme.colors.primary.base} !important;
     & > a {
       color: ${theme.colors.primary.dark2} !important;
     }
