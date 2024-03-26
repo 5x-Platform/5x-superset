@@ -356,8 +356,8 @@ const RightMenu = ({
             /^#(?:[0-9a-f]{3}){1,2}$/i.test(environmentTag.color)
               ? environmentTag.color
               : environmentTag.color
-                .split('.')
-                .reduce((o, i) => o[i], theme.colors)
+                  .split('.')
+                  .reduce((o, i) => o[i], theme.colors)
           }
         >
           <span css={tagStyles}>{environmentTag.text}</span>
@@ -445,7 +445,8 @@ const RightMenu = ({
               {section?.childs?.map?.(child => {
                 if (
                   typeof child !== 'string' &&
-                  child.name !== 'User Registrations' && child.name !== "CSS Templates"
+                  child.name !== 'User Registrations' &&
+                  child.name !== 'CSS Templates'
                 ) {
                   const menuItemDisplay = RightMenuItemIconExtension ? (
                     <StyledMenuItemWithIcon>
@@ -593,7 +594,7 @@ class RightMenuErrorWrapper extends React.PureComponent<RightMenuProps> {
     return { hasError: true };
   }
 
-  noop = () => { };
+  noop = () => {};
 
   render() {
     if (this.state.hasError) {
