@@ -322,7 +322,7 @@ class DatasourceControl extends React.PureComponent {
           </Menu.Item>
         )}
         <Menu.Item key={CHANGE_DATASET}>{t('Swap dataset')}</Menu.Item>
-        {!isMissingDatasource && canAccessSqlLab && (
+        {/* {!isMissingDatasource && canAccessSqlLab && (
           <Menu.Item key={VIEW_IN_SQL_LAB}>
             <Link
               to={{
@@ -334,7 +334,7 @@ class DatasourceControl extends React.PureComponent {
               {t('View in SQL Lab')}
             </Link>
           </Menu.Item>
-        )}
+        )} */}
       </Menu>
     );
 

@@ -1584,7 +1584,7 @@ const DatabaseModal: FunctionComponent<DatabaseModalProps> = ({
       >
         {t('CREATE DATASET')}
       </Button>
-      <Button
+      {/* <Button
         buttonStyle="secondary"
         onClick={() => {
           setLoading(true);
@@ -1593,7 +1593,7 @@ const DatabaseModal: FunctionComponent<DatabaseModalProps> = ({
         }}
       >
         {t('QUERY DATA IN SQL LAB')}
-      </Button>
+      </Button> */}
     </StyledBtns>
   );
 
