@@ -234,7 +234,7 @@ extraConfigMountPath: "/app/configs"
 
 image:
   repository: 153475762833.dkr.ecr.us-east-1.amazonaws.com/5x-superset-dev
-  tag: "latest"
+  tag: "superset_integration"
   pullPolicy: Always
 
 imagePullSecrets: []
