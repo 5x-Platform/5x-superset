@@ -104,7 +104,7 @@ const StyledHeader = styled.header`
       .ant-menu-horizontal .ant-menu-item {
         height: 100%;
         line-height: inherit;
-        color: ${theme.colors.primary.base};
+        color: ${theme.colors.primary.dark2};
       }
       .ant-menu > .ant-menu-item > a {
         padding: ${theme.gridUnit * 4}px; 
@@ -124,7 +124,7 @@ const StyledHeader = styled.header`
         }
         .ant-menu-item-active > a {
           &:hover {
-            color: ${theme.colors.primary.base} !important;
+            color: ${theme.colors.primary.dark2} !important;
             background-color: transparent !important;
           }
         }
@@ -172,13 +172,13 @@ const globalStyles = (theme: SupersetTheme) => css`
     font-weight: ${theme.typography.weights.bold} !important;
     border-bottom: 3px solid ${theme.colors.primary.base} !important;
     & > a {
-      color: ${theme.colors.primary.base} !important;
+      color: ${theme.colors.primary.dark2} !important;
     }
   }
   .ant-menu-vertical > .ant-menu-item:has(> .is-active) {
-    background-color: ${theme.colors.primary.base};
+    background-color: ${theme.colors.primary.dark2};
     & > a {
-      color: ${theme.colors.primary.base};
+      color: ${theme.colors.primary.dark2};
     }
   }
 `;
