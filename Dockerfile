@@ -62,9 +62,9 @@ ENV LANG=C.UTF-8 \
     SUPERSET_PORT=8088
 
 # Environment variables for admin setup
-ENV ADMIN_USERNAME=prince@5x.co \
-    ADMIN_EMAIL=prince@5x.co \
-    ADMIN_PASSWORD=admin
+# ENV ADMIN_USERNAME=prince@5x.co \
+#     ADMIN_EMAIL=prince@5x.co \
+#     ADMIN_PASSWORD=admin
 
 RUN mkdir -p ${PYTHONPATH} superset/static superset-frontend apache_superset.egg-info requirements \
     && useradd --user-group -d ${SUPERSET_HOME} -m --no-log-init --shell /bin/bash superset \
