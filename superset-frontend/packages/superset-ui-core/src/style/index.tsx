@@ -68,7 +68,7 @@ const defaultTheme = {
       light3: '#EDE5FF',
       light4: '#F2EEFB',
       light5: '#FAF8FF',
-      inactive: '#737482',
+      inactive: '#5C5D6D',
     },
     secondary: {
       base: '#444E7C',
