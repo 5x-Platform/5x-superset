@@ -57,9 +57,9 @@ envFromSecrets: []
 
 # -- Extra environment variables that will be passed into pods
 extraEnv: 
-  # ADMIN_USERNAME: prince@5x.co
-  # ADMIN_EMAIL: prince@5x.co
-  # ADMIN_PASSWORD: admin
+  ADMIN_USERNAME: prince@5x.co
+  ADMIN_EMAIL: prince@5x.co
+  ADMIN_PASSWORD: admin
 
   # Different gunicorn settings, refer to the gunicorn documentation
   # https://docs.gunicorn.org/en/stable/settings.html#
@@ -104,24 +104,24 @@ extraSecretEnv: {
 
 # -- Extra files to mount on `/app/pythonpath`
 extraConfigs:
-  # custom_sso_security_manager.py: |
-  #   from superset.security import SupersetSecurityManager
-  #   import logging
+  custom_sso_security_manager.py: |
+    from superset.security import SupersetSecurityManager
+    import logging
 
-  #   class CustomSsoSecurityManager(SupersetSecurityManager):
-  #       def oauth_user_info(self, provider, response=None):
-  #           if provider == 'auth0':
-  #               res = self.appbuilder.sm.oauth_remotes[provider].get('5xdev.us.auth0.com/userinfo')
-  #               me = res.json()
-  #               logging.info(" user_data: %s", me)
+    class CustomSsoSecurityManager(SupersetSecurityManager):
+        def oauth_user_info(self, provider, response=None):
+            if provider == 'auth0':
+                res = self.appbuilder.sm.oauth_remotes[provider].get('5xdev.us.auth0.com/userinfo')
+                me = res.json()
+                logging.info(" user_data: %s", me)
 
-  #               return {
-  #                   'username' : me['email'],
-  #                   'name' : me['name'],
-  #                   'email' : me['email'],
-  #                   'first_name': me['email'],
-  #                   'last_name': me['name'],
-  #               }
+                return {
+                    'username' : me['email'],
+                    'name' : me['name'],
+                    'email' : me['email'],
+                    'first_name': me['email'],
+                    'last_name': me['name'],
+                }
 
 # -- Extra files to mount on `/app/pythonpath` as secrets
 extraSecrets: {}
@@ -146,84 +146,84 @@ extraVolumeMounts: []
 # WARNING: the order is not guaranteed
 # Files can be passed as helm --set-file configOverrides.my-override=my-file.py
 configOverrides:
-  # custom_oauth_config: |
-  #   import logging
-  #   import os
+  custom_oauth_config: |
+    import logging
+    import os
 
-  #   from celery.schedules import crontab
-  #   from flask_caching.backends.filesystemcache import FileSystemCache
-  #   from flask_appbuilder.security.manager import AUTH_OID, AUTH_REMOTE_USER, AUTH_DB, AUTH_LDAP, AUTH_OAUTH
+    from celery.schedules import crontab
+    from flask_caching.backends.filesystemcache import FileSystemCache
+    from flask_appbuilder.security.manager import AUTH_OID, AUTH_REMOTE_USER, AUTH_DB, AUTH_LDAP, AUTH_OAUTH
 
-  #   logger = logging.getLogger()
+    logger = logging.getLogger()
 
-  #   AUTH_TYPE = AUTH_OAUTH
+    AUTH_TYPE = AUTH_OAUTH
 
-  #   OAUTH_PROVIDERS = [{
-  #       'name': 'auth0',
-  #       'token_key': 'access_token', # depending on your provider
-  #       'icon': 'fa-google', # optional
-  #       'remote_app': {
-  #           'client_id': 'CtjsodUV3gusZN0QdpQzOZOkoWaWQOQ2',
-  #           'client_secret': 'IJd3KyNaMDSCXVLJD36OlDkPCadTO7UmFjD37zOXkDte8iUgkJlTX3g77Rk8Q-pG',
-  #           'api_base_url': 'https://dev-auth.5x.co',
-  #           'base_url': '',
-  #           'client_kwargs': {
-  #               'scope': 'openid profile email',
-  #           },
-  #           'api_base_url': 'https://dev-auth.5x.co',
-  #           'access_token_url': 'https://dev-auth.5x.co/oauth/token',
-  #           'authorize_url': 'https://dev-auth.5x.co/authorize',
-  #           'jwks_uri': 'https://dev-auth.5x.co/.well-known/jwks.json',
-  #           'access_token_method': 'POST',
-  #           'access_token_params': {
-  #               'audience': 'https://pen-testing.5x-api.com'
-  #           }
-  #       }
-  #   }]
+    OAUTH_PROVIDERS = [{
+        'name': 'auth0',
+        'token_key': 'access_token', # depending on your provider
+        'icon': 'fa-google', # optional
+        'remote_app': {
+            'client_id': 'CtjsodUV3gusZN0QdpQzOZOkoWaWQOQ2',
+            'client_secret': 'IJd3KyNaMDSCXVLJD36OlDkPCadTO7UmFjD37zOXkDte8iUgkJlTX3g77Rk8Q-pG',
+            'api_base_url': 'https://dev-auth.5x.co',
+            'base_url': '',
+            'client_kwargs': {
+                'scope': 'openid profile email',
+            },
+            'api_base_url': 'https://dev-auth.5x.co',
+            'access_token_url': 'https://dev-auth.5x.co/oauth/token',
+            'authorize_url': 'https://dev-auth.5x.co/authorize',
+            'jwks_uri': 'https://dev-auth.5x.co/.well-known/jwks.json',
+            'access_token_method': 'POST',
+            'access_token_params': {
+                'audience': 'https://pen-testing.5x-api.com'
+            }
+        }
+    }]
 
-  #   FEATURE_FLAGS = {
-  #       "ENABLE_TEMPLATE_PROCESSING": True,
-  #       "EMBEDDED_SUPERSET": True,
-  #       "TAGGING_SYSTEM": True
-  #   }
-  #   TALISMAN_ENABLED = False
-  #   ENABLE_PROXY_FIX = True
-  #   SESSION_COOKIE_SECURE = False
-  #   SESSION_COOKIE_HTTPONLY = False
+    FEATURE_FLAGS = {
+        "ENABLE_TEMPLATE_PROCESSING": True,
+        "EMBEDDED_SUPERSET": True,
+        "TAGGING_SYSTEM": True
+    }
+    TALISMAN_ENABLED = False
+    ENABLE_PROXY_FIX = True
+    SESSION_COOKIE_SECURE = False
+    SESSION_COOKIE_HTTPONLY = False
 
-  #   AUTH_USER_REGISTRATION = True
-  #   AUTH_USER_REGISTRATION_ROLE = "Admin"
-  #   PUBLIC_ROLE_LIKE_GAMMA = True
+    AUTH_USER_REGISTRATION = True
+    AUTH_USER_REGISTRATION_ROLE = "Admin"
+    PUBLIC_ROLE_LIKE_GAMMA = True
 
-  #   # Allow Superset to be embedded in an iframe
-  #   HTTP_HEADERS = {"X-Frame-Options": "ALLOWALL", "ngrok-skip-browser-warning": "true"}
-  #   SESSION_COOKIE_SAMESITE = 'Strict'  # May be necessary for iframes; adjust based on your security needs
+    # Allow Superset to be embedded in an iframe
+    HTTP_HEADERS = {"X-Frame-Options": "ALLOWALL", "ngrok-skip-browser-warning": "true"}
+    SESSION_COOKIE_SAMESITE = 'Strict'  # May be necessary for iframes; adjust based on your security needs
 
-  #   FAB_API_SWAGGER_UI = True
-  #   FAB_ADD_SECURITY_API = True
+    FAB_API_SWAGGER_UI = True
+    FAB_ADD_SECURITY_API = True
 
-  #   ENABLE_CORS = True
-  #   CORS_OPTIONS = {
-  #       'supports_credentials': True,
-  #       'allow_headers': [
-  #           'X-CSRFToken', 'Content-Type', 'Origin', 'X-Requested-With', 'Accept',
-  #       ],
-  #       'resources': [
-  #            '/superset/csrf_token/',  # auth
-  #            '/api/v1/formData/',  # sliceId => formData
-  #            '/superset/explore_json/*',  # legacy query API, formData => queryData
-  #            '/api/v1/query/',  # new query API, queryContext => queryData
-  #            '/superset/fetch_datasource_metadata/'  # datasource metadata
-  #       ],
-  #       'origins': ['http://localhost:3001', 'http://localhost:8088', 'http://localhost:3000', 'http://localhost:9010', 'https://platform-1-dev.5x.co', 'https://platform-2-dev.5x.co', 'https://integration-1-dev.5x.co', 'https://integration-2-dev.5x.co', 'https://qa-1.5x.co', 'https://platform-1-dev.5x.co', 'https://qa.5x.co', 'https://staging.5x.co', 'https://app.5x.co'],
-  #   }
+    ENABLE_CORS = True
+    CORS_OPTIONS = {
+        'supports_credentials': True,
+        'allow_headers': [
+            'X-CSRFToken', 'Content-Type', 'Origin', 'X-Requested-With', 'Accept',
+        ],
+        'resources': [
+             '/superset/csrf_token/',  # auth
+             '/api/v1/formData/',  # sliceId => formData
+             '/superset/explore_json/*',  # legacy query API, formData => queryData
+             '/api/v1/query/',  # new query API, queryContext => queryData
+             '/superset/fetch_datasource_metadata/'  # datasource metadata
+        ],
+        'origins': ['http://localhost:3001', 'http://localhost:8088', 'http://localhost:3000', 'http://localhost:9010', 'https://platform-1-dev.5x.co', 'https://platform-2-dev.5x.co', 'https://integration-1-dev.5x.co', 'https://integration-2-dev.5x.co', 'https://qa-1.5x.co', 'https://platform-1-dev.5x.co', 'https://qa.5x.co', 'https://staging.5x.co', 'https://app.5x.co'],
+    }
 
-  #   OIDC_ID_TOKEN_COOKIE_SECURE = False  # Set to True in HTTPS environments
-  #   OIDC_REQUIRE_VERIFIED_EMAIL = False
-  #   OIDC_USER_INFO_ENABLED = True
+    OIDC_ID_TOKEN_COOKIE_SECURE = False  # Set to True in HTTPS environments
+    OIDC_REQUIRE_VERIFIED_EMAIL = False
+    OIDC_USER_INFO_ENABLED = True
 
-  #   from superset.security import CustomSsoSecurityManager
-  #   CUSTOM_SECURITY_MANAGER = CustomSsoSecurityManager
+    from superset.security import CustomSsoSecurityManager
+    CUSTOM_SECURITY_MANAGER = CustomSsoSecurityManager
 # -- Same as above but the values are files
 configOverridesFiles: {}
   # extend_timeout: extend_timeout.py
@@ -243,7 +243,7 @@ imagePullSecrets: []
 initImage:
   repository: apache/superset
   tag: dockerize
-  pullPolicy: Always
+  pullPolicy: IfNotPresent
 
 service:
   type: LoadBalancer
@@ -317,11 +317,11 @@ supersetNode:
     # redis_password: superset
     redis_port: "6379"
     # You need to change below configuration incase bringing own PostgresSQL instance and also set postgresql.enabled:false
-    db_host: '{{ .Release.Name }}-postgresql'
+    db_host: 'supersetdb-dev.cqrsf9fkoulc.us-east-1.rds.amazonaws.com'
     db_port: "5432"
-    db_user: superset
-    db_pass: superset
-    db_name: superset
+    db_user: postgres
+    db_pass: supersetdevpass
+    db_name: workspace1
   env: {}
   # -- If true, forces deployment to reload on each upgrade
   forceReload: false
@@ -714,7 +714,7 @@ init:
     "helm.sh/hook": post-install,post-upgrade
     "helm.sh/hook-delete-policy": "before-hook-creation"
   loadExamples: false
-  createAdmin: true
+  createAdmin: false
   adminUser:
     username: admin
     firstname: Superset
@@ -781,7 +781,7 @@ postgresql:
   ##
   ## Use the PostgreSQL chart dependency.
   ## Set to false if bringing your own PostgreSQL.
-  enabled: true
+  enabled: false
 
   ## Authentication parameters
   auth:
