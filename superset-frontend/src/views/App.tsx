@@ -69,11 +69,10 @@ const LocationPathnameLogger = () => {
 };
 
 const App = () => {
-
   useEffect(() => {
     const handleClickInsideIframe = () => {
       // Send a message to the platform window
-      console.log("Clicked inside iframe")
+      console.log('Clicked inside iframe');
       window.parent.postMessage('iFrameClick', window.location.origin);
     };
 
@@ -83,7 +82,7 @@ const App = () => {
       document.removeEventListener('click', handleClickInsideIframe);
     };
   }, []);
-  
+
   return (
     <Router>
       <ScrollToTop />
@@ -108,7 +107,7 @@ const App = () => {
         <ToastContainer />
       </RootContextProviders>
     </Router>
-  )
-}
+  );
+};
 
 export default hot(App);
