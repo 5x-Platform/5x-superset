@@ -72,8 +72,7 @@ const App = () => {
   useEffect(() => {
     const handleClickInsideIframe = () => {
       // Send a message to the platform window
-      console.log('Clicked inside iframe');
-      window.parent.postMessage('iFrameClick', window.location.origin);
+      window.parent.postMessage('iFrameClick', '*');
     };
 
     document.addEventListener('click', handleClickInsideIframe);
