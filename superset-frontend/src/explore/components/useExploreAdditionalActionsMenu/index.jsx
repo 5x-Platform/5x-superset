@@ -133,7 +133,7 @@ export const useExploreAdditionalActionsMenu = (
     state => state.charts?.[getChartKey(state.explore)],
   );
 
-  const { datasource } = latestQueryFormData;
+  // const { datasource } = latestQueryFormData;
 
   const shareByEmail = useCallback(async () => {
     try {
@@ -433,11 +433,11 @@ export const useExploreAdditionalActionsMenu = (
             responsive
           />
         </Menu.Item>
-        {datasource && (
+        {/* {datasource && (
           <Menu.Item key={MENU_KEYS.RUN_IN_SQL_LAB}>
             {t('Run in SQL Lab')}
           </Menu.Item>
-        )}
+        )} */}
       </Menu>
     ),
     [
