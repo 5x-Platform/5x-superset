@@ -821,7 +821,7 @@ class SupersetSecurityManager(  # pylint: disable=too-many-public-methods
         pvms = self._get_all_pvms()
 
         # Creating default roles
-        self.set_role("Workspace Admin", self._is_admin_pvm, pvms)
+        self.set_role("Admin", self._is_admin_pvm, pvms)
         self.set_role("Primary Contributor", self._is_alpha_pvm, pvms)
         self.set_role("Limited Contributor", self._is_gamma_pvm, pvms)
 
