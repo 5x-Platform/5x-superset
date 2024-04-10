@@ -229,6 +229,7 @@ configOverrides:
     from superset.security import CustomSsoSecurityManager
     CUSTOM_SECURITY_MANAGER = CustomSsoSecurityManager
     LOGOUT_REDIRECT_URL = "/login/auth0"
+    WTF_CSRF_ENABLED = False
 # -- Same as above but the values are files
 configOverridesFiles: {}
   # extend_timeout: extend_timeout.py
