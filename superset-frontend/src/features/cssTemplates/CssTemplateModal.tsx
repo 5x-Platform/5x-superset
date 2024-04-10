@@ -64,6 +64,8 @@ const TemplateContainer = styled.div`
     border: 1px solid ${({ theme }) => theme.colors.grayscale.light2};
     border-radius: ${({ theme }) => theme.gridUnit}px;
     width: 50%;
+    &:hover { border: 1px solid ${({ theme }) =>
+      theme.colors.primary.base}; !important;
   }
 `;
 

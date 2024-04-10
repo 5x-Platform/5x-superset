@@ -445,7 +445,9 @@ const RightMenu = ({
               {section?.childs?.map?.(child => {
                 if (
                   typeof child !== 'string' &&
-                  child.name !== 'User Registrations'
+                  child.name !== 'User Registrations' &&
+                  child.name !== 'List Roles' &&
+                  child.name !== 'List Users'
                 ) {
                   const menuItemDisplay = RightMenuItemIconExtension ? (
                     <StyledMenuItemWithIcon>
