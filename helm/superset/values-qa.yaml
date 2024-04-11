@@ -240,8 +240,8 @@ configMountPath: "/app/pythonpath"
 extraConfigMountPath: "/app/configs"
 
 image:
-  repository: 153475762833.dkr.ecr.us-east-1.amazonaws.com/5x-superset-dev
-  tag: "latest"
+  repository: dockerImage
+  tag: tag
   pullPolicy: Always
 
 imagePullSecrets: []
@@ -323,11 +323,11 @@ supersetNode:
     # redis_password: superset
     redis_port: "6379"
     # You need to change below configuration incase bringing own PostgresSQL instance and also set postgresql.enabled:false
-    db_host: 'supersetdb-dev.cqrsf9fkoulc.us-east-1.rds.amazonaws.com'
+    db_host: 'db_host'
     db_port: "5432"
     db_user: postgres
-    db_pass: supersetdevpass
-    db_name: <5x-workspace-id>
+    db_pass: password
+    db_name: dbname
   env: {}
   # -- If true, forces deployment to reload on each upgrade
   forceReload: false
