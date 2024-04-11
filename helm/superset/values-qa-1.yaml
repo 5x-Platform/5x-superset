@@ -163,8 +163,8 @@ configOverrides:
         'token_key': 'access_token', # depending on your provider
         'icon': 'fa-google', # optional
         'remote_app': {
-            'client_id': 'xOEAogj55dWmDsHZFVMopr5PncGxzCoV',
-            'client_secret': 'p4IdmpItFfPNOo4iDGwFC_SiBbDyvf9YiBtDyzFGArbmXj_UYUi-edHijxFBWt0i',
+            'client_id': 'BGwGBbGxo8Rn5iAsBgmqSzYqSy7Tpsbl',
+            'client_secret': 'n3Hj4f2FPTKx9doivhD4qOAM4eZNK7jAHu-lsXuat0van9RNUvY1bEETP7bVx8yW',
             'api_base_url': 'https://dev-auth.5x.co',
             'base_url': '',
             'client_kwargs': {
@@ -176,7 +176,7 @@ configOverrides:
             'jwks_uri': 'https://dev-auth.5x.co/.well-known/jwks.json',
             'access_token_method': 'POST',
             'access_token_params': {
-                'audience': 'https://staging.api.com'
+                'audience': 'https://qa.api-1.com'
             }
         }
     }]
