@@ -883,3 +883,13 @@ affinity: {}
 
 # -- TopologySpreadConstrains to be added to all deployments
 topologySpreadConstraints: []
+
+startupProbe:
+  httpGet:
+    path: /health
+    port: http
+  initialDelaySeconds: 60
+  timeoutSeconds: 80
+  failureThreshold: 60
+  periodSeconds: 10
+  successThreshold: 1
