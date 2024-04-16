@@ -181,28 +181,28 @@ configOverrides:
 
     AUTH_TYPE = AUTH_OAUTH
 
-    OAUTH_PROVIDERS = [{
-        'name': 'auth0',
-        'token_key': 'access_token', # depending on your provider
-        'icon': 'fa-google', # optional
-        'remote_app': {
-            'client_id': 'CtjsodUV3gusZN0QdpQzOZOkoWaWQOQ2',
-            'client_secret': 'IJd3KyNaMDSCXVLJD36OlDkPCadTO7UmFjD37zOXkDte8iUgkJlTX3g77Rk8Q-pG',
-            'api_base_url': 'https://dev-auth.5x.co',
-            'base_url': '',
-            'client_kwargs': {
-                'scope': 'openid profile email',
-            },
-            'api_base_url': 'https://dev-auth.5x.co',
-            'access_token_url': 'https://dev-auth.5x.co/oauth/token',
-            'authorize_url': 'https://dev-auth.5x.co/authorize',
-            'jwks_uri': 'https://dev-auth.5x.co/.well-known/jwks.json',
-            'access_token_method': 'POST',
-            'access_token_params': {
-                'audience': 'https://pen-testing.5x-api.com'
-            }
-        }
-    }]
+    # OAUTH_PROVIDERS = [{
+    #     'name': 'auth0',
+    #     'token_key': 'access_token', # depending on your provider
+    #     'icon': 'fa-google', # optional
+    #     'remote_app': {
+    #         'client_id': 'CtjsodUV3gusZN0QdpQzOZOkoWaWQOQ2',
+    #         'client_secret': 'IJd3KyNaMDSCXVLJD36OlDkPCadTO7UmFjD37zOXkDte8iUgkJlTX3g77Rk8Q-pG',
+    #         'api_base_url': 'https://dev-auth.5x.co',
+    #         'base_url': '',
+    #         'client_kwargs': {
+    #             'scope': 'openid profile email',
+    #         },
+    #         'api_base_url': 'https://dev-auth.5x.co',
+    #         'access_token_url': 'https://dev-auth.5x.co/oauth/token',
+    #         'authorize_url': 'https://dev-auth.5x.co/authorize',
+    #         'jwks_uri': 'https://dev-auth.5x.co/.well-known/jwks.json',
+    #         'access_token_method': 'POST',
+    #         'access_token_params': {
+    #             'audience': 'https://pen-testing.5x-api.com'
+    #         }
+    #     }
+    # }]
 
     FEATURE_FLAGS = {
         "ENABLE_TEMPLATE_PROCESSING": True,
