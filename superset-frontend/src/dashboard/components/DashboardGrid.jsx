@@ -197,22 +197,22 @@ class DashboardGrid extends React.PureComponent {
     const dashboardEmptyState = editMode && (
       <EmptyStateBig
         title={t('Drag and drop components and charts to the dashboard')}
-        description={t(
-          'You can create a new chart or use existing ones from the panel on the right',
-        )}
-        buttonText={
-          <>
-            <i className="fa fa-plus" />
-            {t('Create a new chart')}
-          </>
-        }
-        buttonAction={() => {
-          window.open(
-            `/chart/add?dashboard_id=${dashboardId}`,
-            '_blank',
-            'noopener noreferrer',
-          );
-        }}
+        // description={t(
+        //   'You can create a new chart or use existing ones from the panel on the right',
+        // )}
+        // buttonText={
+        //   <>
+        //     <i className="fa fa-plus" />
+        //     {t('Create a new chart')}
+        //   </>
+        // }
+        // buttonAction={() => {
+        //   window.open(
+        //     `/chart/add?dashboard_id=${dashboardId}`,
+        //     '_blank',
+        //     'noopener noreferrer',
+        //   );
+        // }}
         image="chart.svg"
       />
     );
@@ -220,22 +220,22 @@ class DashboardGrid extends React.PureComponent {
     const topLevelTabEmptyState = editMode ? (
       <EmptyStateBig
         title={t('Drag and drop components to this tab')}
-        description={t(
-          `You can create a new chart or use existing ones from the panel on the right`,
-        )}
-        buttonText={
-          <>
-            <i className="fa fa-plus" />
-            {t('Create a new chart')}
-          </>
-        }
-        buttonAction={() => {
-          window.open(
-            `/chart/add?dashboard_id=${dashboardId}`,
-            '_blank',
-            'noopener noreferrer',
-          );
-        }}
+        // description={t(
+        //   `You can create a new chart or use existing ones from the panel on the right`,
+        // )}
+        // buttonText={
+        //   <>
+        //     <i className="fa fa-plus" />
+        //     {t('Create a new chart')}
+        //   </>
+        // }
+        // buttonAction={() => {
+        //   window.open(
+        //     `/chart/add?dashboard_id=${dashboardId}`,
+        //     '_blank',
+        //     'noopener noreferrer',
+        //   );
+        // }}
         image="chart.svg"
       />
     ) : (

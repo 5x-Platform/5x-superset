@@ -328,7 +328,7 @@ class SliceAdder extends React.Component {
         `}
       >
         <NewChartButtonContainer>
-          <NewChartButton
+          {/* <NewChartButton
             buttonStyle="link"
             buttonSize="xsmall"
             onClick={() =>
@@ -341,7 +341,7 @@ class SliceAdder extends React.Component {
           >
             <Icons.PlusSmall />
             {t('Create new chart')}
-          </NewChartButton>
+          </NewChartButton> */}
         </NewChartButtonContainer>
         <Controls>
           <Input
