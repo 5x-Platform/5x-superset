@@ -20,7 +20,7 @@
 import React from 'react';
 import { t, styled } from '@superset-ui/core';
 import { EmptyStateBig } from 'src/components/EmptyState';
-import { Link } from 'react-router-dom';
+// import { Link } from 'react-router-dom';
 
 const StyledContainer = styled.div`
   padding: ${({ theme }) => theme.gridUnit * 8}px

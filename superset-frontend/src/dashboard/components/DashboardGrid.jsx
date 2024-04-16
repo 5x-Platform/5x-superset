@@ -36,7 +36,7 @@ const propTypes = {
   resizeComponent: PropTypes.func.isRequired,
   setDirectPathToChild: PropTypes.func.isRequired,
   width: PropTypes.number.isRequired,
-  dashboardId: PropTypes.number,
+  // dashboardId: PropTypes.number,
 };
 
 const defaultProps = {};
@@ -182,7 +182,7 @@ class DashboardGrid extends React.PureComponent {
       editMode,
       canEdit,
       setEditMode,
-      dashboardId,
+      // dashboardId,
     } = this.props;
     const columnPlusGutterWidth =
       (width + GRID_GUTTER_SIZE) / GRID_COLUMN_COUNT;
