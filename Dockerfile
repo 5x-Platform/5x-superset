@@ -61,7 +61,7 @@ ENV LANG=C.UTF-8 \
     SUPERSET_HOME="/app/superset_home" \
     SUPERSET_PORT=8088
 
-# Environment variables for admin setup
+Environment variables for admin setup
 ENV ADMIN_USERNAME=prince@5x.co \
     ADMIN_EMAIL=prince@5x.co \
     ADMIN_PASSWORD=admin
@@ -97,6 +97,7 @@ RUN pip install Authlib
 RUN pip install sqlalchemy-redshift
 RUN pip install snowflake-sqlalchemy
 RUN pip install sqlalchemy-bigquery
+RUN pip install psycopg2
 
 COPY --chown=superset:superset --from=superset-node /app/superset/static/assets superset/static/assets
 COPY --chown=superset:superset docker/pythonpath_dev/custom_sso_security_manager.py pythonpath/
