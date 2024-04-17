@@ -822,9 +822,8 @@ class SupersetSecurityManager(  # pylint: disable=too-many-public-methods
 
         # Creating default roles
         self.set_role("Admin", self._is_admin_pvm, pvms)
-        self.set_role("Alpha", self._is_alpha_pvm, pvms)
-        self.set_role("Gamma", self._is_gamma_pvm, pvms)
-        self.set_role("sql_lab", self._is_sql_lab_pvm, pvms)
+        self.set_role("Primary Contributor", self._is_alpha_pvm, pvms)
+        self.set_role("Limited Contributor", self._is_gamma_pvm, pvms)
 
         # Configure public role
         if current_app.config["PUBLIC_ROLE_LIKE"]:

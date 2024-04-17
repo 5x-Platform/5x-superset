@@ -4,16 +4,15 @@ on:
   push:
     branches:
       - dev
+      - staging
+      - main
 jobs:
   build:
     name: Build & Deploy
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Superset Repository
-        uses: actions/checkout@v2
-        with:
-          repository: 5x-Platform/5x-superset
-          ref: dev      
+        uses: actions/checkout@v2 
 
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v1
@@ -22,6 +21,31 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_KEY }}
           aws-region: us-east-1
 
+      - name: Set Environment based on Branch
+        shell: bash
+        run: |
+          export GIT_BRANCH="${GITHUB_REF##*/}"
+          echo "Parsed git branch as '${GIT_BRANCH}' from '${GITHUB_REF}'"
+          
+          export DEPLOY_ENV
+          case "$GIT_BRANCH" in
+            main)
+              DEPLOY_ENV=prod
+              DOCKER_IMAGE=${DEPLOY_ENV}-superset
+              ;;
+            staging|dev)
+              DEPLOY_ENV=${GIT_BRANCH}
+              DOCKER_IMAGE=${DEPLOY_ENV}-superset
+              ;;
+          esac
+          
+          echo "Setting deploy environment to ${DEPLOY_ENV}"
+          echo "DEPLOY_ENV=${DEPLOY_ENV}" >> "$GITHUB_ENV"
+          echo "Setting environment to ${DEPLOY_ENV}"
+          echo "DEPLOY_ENV=${DEPLOY_ENV}" >> "$GITHUB_ENV"
+          echo "Setting image name"
+          echo "IMAGE=153475762833.dkr.ecr.us-east-1.amazonaws.com/5x-superset:${DOCKER_IMAGE}" >> "$GITHUB_ENV"
+
       # Login to Amazon ECR
       - name: Login to Amazon ECR
         id: ecr-login
@@ -29,22 +53,6 @@ jobs:
 
       - name: Build Code
         run: |
-          docker build -t 5x-superset-dev .
-          docker tag 5x-superset-dev:latest 153475762833.dkr.ecr.us-east-1.amazonaws.com/5x-superset-dev:latest
-          docker push 153475762833.dkr.ecr.us-east-1.amazonaws.com/5x-superset-dev:latest
-
-      - name: Fill in the new image ID in the Amazon ECS task definition
-        id: task-def
-        uses: aws-actions/amazon-ecs-render-task-definition@v1
-        with:
-          task-definition: .github/task-definition.json
-          container-name: 5x-superset-dev
-          image: 153475762833.dkr.ecr.us-east-1.amazonaws.com/5x-superset-dev:latest
-          
-      - name: Deploy Amazon ECS task definition
-        uses: aws-actions/amazon-ecs-deploy-task-definition@v1
-        with:
-          task-definition: ${{ steps.task-def.outputs.task-definition }}
-          service: abc1234-superset-dev
-          cluster: 5X-superset-dev
-          wait-for-service-stability: false
+          docker build -t 5x-superset .
+          docker tag 5x-superset:latest ${IMAGE}
+          docker push ${IMAGE}

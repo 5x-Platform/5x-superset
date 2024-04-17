@@ -68,8 +68,6 @@ SESSION_COOKIE_SECURE = True
 SESSION_COOKIE_HTTPONLY = False
 
 
-AUTH_USER_REGISTRATION = True
-AUTH_USER_REGISTRATION_ROLE = "Admin"
 PUBLIC_ROLE_LIKE_GAMMA = True
 
 # Allow Superset to be embedded in an iframe
