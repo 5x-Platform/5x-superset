@@ -26,8 +26,8 @@ import { t, styled, css } from '@superset-ui/core';
 import { Input } from 'src/components/Input';
 import { Select } from 'src/components';
 import Loading from 'src/components/Loading';
-import Button from 'src/components/Button';
-import Icons from 'src/components/Icons';
+// import Button from 'src/components/Button';
+// import Icons from 'src/components/Icons';
 import {
   LocalStorageKeys,
   getItem,
@@ -105,19 +105,19 @@ const NewChartButtonContainer = styled.div`
   `}
 `;
 
-const NewChartButton = styled(Button)`
-  ${({ theme }) => css`
-    height: auto;
-    & > .anticon + span {
-      margin-left: 0;
-    }
-    & > [role='img']:first-of-type {
-      margin-right: ${theme.gridUnit}px;
-      padding-bottom: 1px;
-      line-height: 0;
-    }
-  `}
-`;
+// const NewChartButton = styled(Button)`
+//   ${({ theme }) => css`
+//     height: auto;
+//     & > .anticon + span {
+//       margin-left: 0;
+//     }
+//     & > [role='img']:first-of-type {
+//       margin-right: ${theme.gridUnit}px;
+//       padding-bottom: 1px;
+//       line-height: 0;
+//     }
+//   `}
+// `;
 
 export const ChartList = styled.div`
   flex-grow: 1;
@@ -328,7 +328,7 @@ class SliceAdder extends React.Component {
         `}
       >
         <NewChartButtonContainer>
-          <NewChartButton
+          {/* <NewChartButton
             buttonStyle="link"
             buttonSize="xsmall"
             onClick={() =>
@@ -341,7 +341,7 @@ class SliceAdder extends React.Component {
           >
             <Icons.PlusSmall />
             {t('Create new chart')}
-          </NewChartButton>
+          </NewChartButton> */}
         </NewChartButtonContainer>
         <Controls>
           <Input

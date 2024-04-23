@@ -102,23 +102,33 @@ extraSecretEnv: {}
 # -- Extra files to mount on `/app/pythonpath`
 extraConfigs: 
    custom_sso_security_manager.py: |
+    from flask import redirect, flash, request
     from superset.security import SupersetSecurityManager
-    import logging
-
+    from flask_appbuilder.security.views import AuthDBView
+    from flask_appbuilder.security.views import expose
+    from flask_login import login_user
+    from flask_jwt_extended import decode_token
+    class CustomAuthDBView(AuthDBView):
+        @expose('/login/', methods=['GET', 'POST'])
+        def login(self):
+            token = request.args.get('token')
+            sm = self.appbuilder.sm
+            session = sm.get_session
+            if not token:
+                return super(CustomAuthDBView,self).login()
+            try:
+                token = decode_token(token)
+                id = token["sub"]
+                user = session.query(sm.user_model).filter_by(id=id).first()
+                login_user(user, remember=False, force=True)
+                return redirect(self.appbuilder.get_url_for_index)
+            except:
+                flash('Unable to auto login', 'warning')
+                return super(CustomAuthDBView,self).login()
     class CustomSsoSecurityManager(SupersetSecurityManager):
-        def oauth_user_info(self, provider, response=None):
-            if provider == 'auth0':
-                res = self.appbuilder.sm.oauth_remotes[provider].get('5xdev.us.auth0.com/userinfo')
-                me = res.json()
-                logging.info(" user_data: %s", me)
-
-                return {
-                    'username' : me['email'],
-                    'name' : me['name'],
-                    'email' : me['email'],
-                    'first_name': me['email'],
-                    'last_name': me['name'],
-                }
+        authdbview = CustomAuthDBView
+        def __init__(self, appbuilder):
+            super(CustomSsoSecurityManager, self).__init__(appbuilder)
 
 # -- Extra files to mount on `/app/pythonpath` as secrets
 extraSecrets: {}
@@ -156,30 +166,6 @@ configOverrides:
 
     logger = logging.getLogger()
 
-    AUTH_TYPE = AUTH_OAUTH
-
-    OAUTH_PROVIDERS = [{
-        'name': 'auth0',
-        'token_key': 'access_token', # depending on your provider
-        'icon': 'fa-google', # optional
-        'remote_app': {
-            'client_id': 'CtjsodUV3gusZN0QdpQzOZOkoWaWQOQ2',
-            'client_secret': 'IJd3KyNaMDSCXVLJD36OlDkPCadTO7UmFjD37zOXkDte8iUgkJlTX3g77Rk8Q-pG',
-            'api_base_url': 'https://dev-auth.5x.co',
-            'base_url': '',
-            'client_kwargs': {
-                'scope': 'openid profile email',
-            },
-            'api_base_url': 'https://dev-auth.5x.co',
-            'access_token_url': 'https://dev-auth.5x.co/oauth/token',
-            'authorize_url': 'https://dev-auth.5x.co/authorize',
-            'jwks_uri': 'https://dev-auth.5x.co/.well-known/jwks.json',
-            'access_token_method': 'POST',
-            'access_token_params': {
-                'audience': 'https://pen-testing.5x-api.com'
-            }
-        }
-    }]
 
     FEATURE_FLAGS = {
         "ENABLE_TEMPLATE_PROCESSING": True,
@@ -229,7 +215,7 @@ configOverrides:
 
     from superset.security import CustomSsoSecurityManager
     CUSTOM_SECURITY_MANAGER = CustomSsoSecurityManager
-    LOGOUT_REDIRECT_URL = "/login/auth0"
+    LOGOUT_REDIRECT_URL = "/login"
     WTF_CSRF_ENABLED = False
 # -- Same as above but the values are files
 configOverridesFiles: {}
