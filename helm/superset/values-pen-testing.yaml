@@ -166,7 +166,6 @@ configOverrides:
 
     logger = logging.getLogger()
 
-    AUTH_TYPE = AUTH_OAUTH
 
     FEATURE_FLAGS = {
         "ENABLE_TEMPLATE_PROCESSING": True,
@@ -216,7 +215,7 @@ configOverrides:
 
     from superset.security import CustomSsoSecurityManager
     CUSTOM_SECURITY_MANAGER = CustomSsoSecurityManager
-    LOGOUT_REDIRECT_URL = "/login/auth0"
+    LOGOUT_REDIRECT_URL = "/login"
     WTF_CSRF_ENABLED = False
 # -- Same as above but the values are files
 configOverridesFiles: {}
