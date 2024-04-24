@@ -20,7 +20,7 @@
 import React from 'react';
 import { t, styled } from '@superset-ui/core';
 import { EmptyStateBig } from 'src/components/EmptyState';
-import { Link } from 'react-router-dom';
+// import { Link } from 'react-router-dom';
 
 const StyledContainer = styled.div`
   padding: ${({ theme }) => theme.gridUnit * 8}px
@@ -45,17 +45,17 @@ export const SELECT_MESSAGE = t(
 );
 export const CREATE_MESSAGE = t('create dataset from SQL query');
 export const VIEW_DATASET_MESSAGE = t(
-  ' to open SQL Lab. From there you can save the query as a dataset.',
+  'From there you can save the query as a dataset.',
 );
 
 const renderEmptyDescription = () => (
   <>
     {SELECT_MESSAGE}
-    <Link to="/sqllab">
+    {/* <Link to="/sqllab">
       <span role="button" tabIndex={0}>
         {CREATE_MESSAGE}
       </span>
-    </Link>
+    </Link> */}
     {VIEW_DATASET_MESSAGE}
   </>
 );
